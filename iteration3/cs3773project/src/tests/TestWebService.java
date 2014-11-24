@@ -61,8 +61,8 @@ public class TestWebService {
 	/*
 	 * Test sendRequest
 	 */
+/*
 
-	//@Test(expected = RuntimeException.class)
 	@Test(timeout = 5000)
 	public void testbadSSL(){
 		WSStuff simpleConnect = new WSStuff("http://devcloud.fulgentcorp.com/testbad.php");
@@ -74,6 +74,9 @@ public class TestWebService {
 		}
 		//assertEquals("this is only a test", response);
 	}
+	*/
+	
+	
 	
 	
 	/*
