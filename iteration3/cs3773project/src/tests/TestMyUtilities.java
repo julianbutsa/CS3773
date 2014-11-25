@@ -116,6 +116,8 @@ public class TestMyUtilities {
 		JSONObject testobject = new JSONObject();
 		testobject.put(testname, testvalue);
 		
+		testarray.put(testobject);
+		
 		assertEquals( testobject , MyUtilities.getJSONObject(testname, testarray));
 	}
 	/*

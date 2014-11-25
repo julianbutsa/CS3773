@@ -14,12 +14,20 @@ public class MyUtilities {
 		if(jarray == null)
 			return null;
 			//do something
+		//System.out.println(jarray.toString());
+		
 		try{
 			for(int i = 0; i < jarray.length();i++){
 				Object temp = jarray.get(i);
 				if(temp instanceof JSONObject){
-					Object value = ((JSONObject) temp).get(key);	
-					return (JSONObject) temp;
+					try{
+						((JSONObject)temp).get(key);
+						return (JSONObject)temp;
+					}catch(JSONException e){
+						return null;
+					}
+					//if(((JSONObject)temp).get(key) != null)
+						//return (JSONObject) temp;
 				}				
 			}
 		}catch(JSONException e){
