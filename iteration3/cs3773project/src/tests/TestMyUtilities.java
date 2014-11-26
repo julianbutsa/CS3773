@@ -2,6 +2,10 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.security.InvalidParameterException;
+
+import madmarcos.CryptoStuff;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -127,4 +131,32 @@ public class TestMyUtilities {
 		fail("Not yet implemented");
 	}
 */
+	
+	
+	/*
+	 * Test sha256hasher
+	 */
+	@Test
+	public void test_sha256jarray_nullarray(){
+		try{
+			MyUtilities.sha256adder(null);
+		}catch(InvalidParameterException e ){
+			assertEquals("Cannot sha256 a null JSONArray.", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void test_sha256jarray_success(){
+		JSONArray testarray = new JSONArray();
+		JSONObject testobject = new JSONObject();
+		testobject.put("key",  "value");
+		JSONObject testobject2= new JSONObject();
+		testobject2.put("key2",  "value2");
+		testarray.put(testobject);
+		testarray.put(testobject2);
+		String hash = CryptoStuff.hashSha256(testarray.toString());
+		JSONArray returnarray = new JSONArray(MyUtilities.sha256adder(testarray));
+		assertEquals(hash, MyUtilities.getJSONObject("checksum", returnarray).get("checksum"));
+		
+	}
 }

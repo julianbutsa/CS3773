@@ -1,5 +1,9 @@
 package source;
 
+import java.security.InvalidParameterException;
+
+import madmarcos.CryptoStuff;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +28,7 @@ public class MyUtilities {
 						((JSONObject)temp).get(key);
 						return (JSONObject)temp;
 					}catch(JSONException e){
-						return null;
+						
 					}
 					//if(((JSONObject)temp).get(key) != null)
 						//return (JSONObject) temp;
@@ -37,4 +41,17 @@ public class MyUtilities {
 		
 	}
 
+	
+	public static String sha256adder(JSONArray jarray){
+		if(jarray == null)
+			throw new InvalidParameterException("Cannot sha256 a null JSONArray.");
+		
+		JSONArray copyarray = new JSONArray(jarray.toString());
+		JSONObject sha = new JSONObject();
+		sha.put("checksum", CryptoStuff.hashSha256(jarray.toString()));
+		
+		copyarray.put(sha);
+		
+		return copyarray.toString();
+	}
 }
