@@ -1,11 +1,17 @@
 package tests;
 
 import static org.junit.Assert.*;
-import madmarcos.CryptoStuff;
 
+import java.io.File;
+
+import madmarcos.CryptoStuff;
+import madmarcos.WSStuff;
+
+import org.json.JSONException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import source.Session;
 import source.User;
 
 public class TestLogin {
@@ -182,6 +188,37 @@ public class TestLogin {
 		assertNotNull(testuser);
 		assertEquals(testlogin, testuser.getLogin());
 		assertEquals(testpasswordhash, testuser.getPassword());
+	}
+	
+	
+	
+	/*
+	 * Test user function login.
+	 */
+	
+	
+	@Test
+	public void test_login_success(){
+		User testuser = null;
+		try {
+			testuser = new User("jbc878Bruneault", "qcGQp8Z5tzahZXk" );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
+		simpleConnect.initSSLContext(new File("fulgentcorp.cer"));
+		
+		
+		try {
+			Session usersession = testuser.login(simpleConnect);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

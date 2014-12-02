@@ -3,7 +3,13 @@ package source;
 import java.util.regex.*;
 import java.lang.Throwable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import madmarcos.CryptoStuff;
+import madmarcos.HTTPMethod;
+import madmarcos.WSStuff;
 
 public class User {
 	private String login;
@@ -89,5 +95,32 @@ public class User {
 			return false;
 		}
 		return true;
+	}
+	
+	public Session login(WSStuff context) throws JSONException, Exception{
+		Session newsession;
+		JSONArray loginInfo = new JSONArray();
+		JSONObject obj = new JSONObject();
+		obj.put("action", "login");
+		loginInfo.put(obj);
+		obj = new JSONObject();
+		obj.put("login", this.login);
+		loginInfo.put(obj);
+		
+		obj = new JSONObject();
+		obj.put("password", this.password);
+		loginInfo.put(obj);
+		
+		
+		JSONArray response = new JSONArray(context.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginInfo)));
+		String responsetype = (String) MyUtilities.getJSONObject("response", response).get("response");
+		
+		if(responsetype.equals( "error")){
+			throw new Exception (  (String) MyUtilities.getJSONObject("message", response).get("message"));
+		}
+		
+		newsession = new Session(MyUtilities.getJSONObject("session_id", response).get("session_id"),
+								MyUtilities.getJSONObject("session_salt", response).get("session_salt"));
+		return newsession;
 	}
 }
