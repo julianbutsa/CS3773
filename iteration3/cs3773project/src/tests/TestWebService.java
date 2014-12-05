@@ -397,7 +397,7 @@ public class TestWebService {
 		testarray.put(testobject);
 		testarray.put(testobject2);
 		
-		JSONArray checksumadded = new JSONArray(MyUtilities.sha256adder(testarray));
+		JSONArray checksumadded = new JSONArray(MyUtilities.sha256adder(testarray, ""));
 		testchecksum.put("checksum", MyUtilities.getJSONObject("checksum",checksumadded).get("checksum"));
 		
 		testarray.put(testchecksum);
@@ -420,7 +420,7 @@ public class TestWebService {
 		strippedresponse.put(MyUtilities.getJSONObject("result", responsearray));
 		strippedresponse.put(MyUtilities.getJSONObject("message", responsearray));
 		
-		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse));
+		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse, ""));
 		
 		obj = MyUtilities.getJSONObject("checksum", srwithhash);
 		assertNotNull(obj);
@@ -450,7 +450,7 @@ public class TestWebService {
 		strippedresponse.put(MyUtilities.getJSONObject("result", responsearray));
 		strippedresponse.put(MyUtilities.getJSONObject("message", responsearray));
 		
-		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse));
+		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse, ""));
 		
 		obj = MyUtilities.getJSONObject("checksum", srwithhash);
 		assertNotNull(obj);
@@ -480,7 +480,7 @@ public class TestWebService {
 		strippedresponse.put(MyUtilities.getJSONObject("result", responsearray));
 		strippedresponse.put(MyUtilities.getJSONObject("message", responsearray));
 		
-		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse));
+		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse, ""));
 		
 		obj = MyUtilities.getJSONObject("checksum", srwithhash);
 		assertNotNull(obj);
@@ -500,7 +500,7 @@ public class TestWebService {
 		testarray.put(testobject);
 		testarray.put(testobject2);
 		
-		JSONArray checksumadded = new JSONArray(MyUtilities.sha256adder(testarray));
+		JSONArray checksumadded = new JSONArray(MyUtilities.sha256adder(testarray, "'"));
 		testchecksum.put("checksum", MyUtilities.getJSONObject("checksum",checksumadded).get("checksum"));
 		
 		testarray.put(testchecksum);
@@ -523,7 +523,7 @@ public class TestWebService {
 		strippedresponse.put(MyUtilities.getJSONObject("result", responsearray));
 		strippedresponse.put(MyUtilities.getJSONObject("message", responsearray));
 		
-		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse));
+		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse, ""));
 		
 		obj = MyUtilities.getJSONObject("checksum", srwithhash);
 		assertNotNull(obj);
@@ -694,7 +694,7 @@ public class TestWebService {
 		strippedresponse.put(MyUtilities.getJSONObject("result", responsearray));
 		strippedresponse.put(MyUtilities.getJSONObject("message", responsearray));
 		
-		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse));
+		JSONArray srwithhash = new JSONArray(MyUtilities.sha256adder(strippedresponse, ""));
 		
 		obj = MyUtilities.getJSONObject("checksum", srwithhash);
 		assertNotNull(obj);

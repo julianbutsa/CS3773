@@ -111,16 +111,41 @@ public class User {
 		obj.put("password", this.password);
 		loginInfo.put(obj);
 		
-		
-		JSONArray response = new JSONArray(context.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginInfo)));
-		String responsetype = (String) MyUtilities.getJSONObject("response", response).get("response");
+		String response = context.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginInfo, ""));
+		JSONArray rArray = new JSONArray(response);
+		String responsetype = (String) MyUtilities.getJSONObject("result", rArray).get("result");
 		
 		if(responsetype.equals( "error")){
-			throw new Exception (  (String) MyUtilities.getJSONObject("message", response).get("message"));
+			throw new Exception (  (String) MyUtilities.getJSONObject("message", rArray).get("message"));
 		}
 		
-		newsession = new Session(MyUtilities.getJSONObject("session_id", response).get("session_id"),
-								MyUtilities.getJSONObject("session_salt", response).get("session_salt"));
+		newsession = new Session(MyUtilities.getJSONObject("session_id", rArray).get("session_id"),
+								MyUtilities.getJSONObject("session_salt", rArray).get("session_salt"));
 		return newsession;
+	}
+
+
+	public static String hello(Session usersession, WSStuff simpleConnect) throws Exception {
+		// TODO Auto-generated method stub
+		String returnString = "";
+		JSONArray helloRequest = new JSONArray();
+		
+		JSONObject action = new JSONObject();
+		action.put("action", "hello");
+		JSONObject sessionid = new JSONObject();
+		action.put("session_id", usersession.getSessionID());
+		helloRequest.put(action);
+		helloRequest.put(sessionid);
+		
+		String response = simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(helloRequest, usersession.getSessionSalt()));
+		JSONArray rArray = new JSONArray ( response);
+		
+		JSONObject returnType = MyUtilities.getJSONObject("result", rArray);
+		if(returnType.get("result") == "success")
+			returnString = (String) MyUtilities.getJSONObject("message", rArray).get("message");
+		else{
+			throw new Exception ( (String) MyUtilities.getJSONObject("message", rArray).get("message"));
+		}
+		return returnString;
 	}
 }

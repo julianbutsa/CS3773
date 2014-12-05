@@ -42,13 +42,13 @@ public class MyUtilities {
 	}
 
 	
-	public static String sha256adder(JSONArray jarray){
+	public static String sha256adder(JSONArray jarray, String salt){
 		if(jarray == null)
 			throw new InvalidParameterException("Cannot sha256 a null JSONArray.");
 		
 		JSONArray copyarray = new JSONArray(jarray.toString());
 		JSONObject sha = new JSONObject();
-		sha.put("checksum", CryptoStuff.hashSha256(jarray.toString()));
+		sha.put("checksum", CryptoStuff.hashSha256(salt + jarray.toString()) );
 		
 		copyarray.put(sha);
 		

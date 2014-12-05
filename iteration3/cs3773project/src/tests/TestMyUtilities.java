@@ -139,7 +139,7 @@ public class TestMyUtilities {
 	@Test
 	public void test_sha256jarray_nullarray(){
 		try{
-			MyUtilities.sha256adder(null);
+			MyUtilities.sha256adder(null, "");
 		}catch(InvalidParameterException e ){
 			assertEquals("Cannot sha256 a null JSONArray.", e.getMessage());
 		}
@@ -155,7 +155,7 @@ public class TestMyUtilities {
 		testarray.put(testobject);
 		testarray.put(testobject2);
 		String hash = CryptoStuff.hashSha256(testarray.toString());
-		JSONArray returnarray = new JSONArray(MyUtilities.sha256adder(testarray));
+		JSONArray returnarray = new JSONArray(MyUtilities.sha256adder(testarray, ""));
 		assertEquals(hash, MyUtilities.getJSONObject("checksum", returnarray).get("checksum"));
 		
 	}

@@ -41,11 +41,13 @@ public class TestAuthentication {
 		pwhash.put("password", TestAuthentication.passwordhash);
 		loginrequest.put(pwhash);
 		
-		TestAuthentication.wsrequest = new JSONArray(MyUtilities.sha256adder(loginrequest));
+		TestAuthentication.wsrequest = new JSONArray(MyUtilities.sha256adder(loginrequest, ""));
 		
 	}
 	
 	
+	
+	/* Test wsstuff login*/
 	
 	
 	@Test
@@ -164,7 +166,7 @@ public class TestAuthentication {
 		
 		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
 		simpleConnect.initSSLContext( new File("fulgentcorp.cer"));
-		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginrequest).toString()));
+		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginrequest, "")));
 		assertNotNull(response);
 		assertEquals("error", MyUtilities.getJSONObject("result", response).get("result"));
 		assertEquals("Unable to login!", MyUtilities.getJSONObject("message", response).get("message"));

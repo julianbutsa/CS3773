@@ -6,7 +6,11 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    TestJSON.class,
    TestLogin.class,
-   TestMyUtilities.class
+   TestMyUtilities.class,
+   TestWebService.class
 })
+
+
+
 public class AllTests {   
 }  
