@@ -48,6 +48,7 @@ public class MyUtilities {
 		
 		JSONArray copyarray = new JSONArray(jarray.toString());
 		JSONObject sha = new JSONObject();
+		System.out.printf("Salt + string: %s\n", salt+jarray.toString());
 		sha.put("checksum", CryptoStuff.hashSha256(salt + jarray.toString()) );
 		
 		copyarray.put(sha);
