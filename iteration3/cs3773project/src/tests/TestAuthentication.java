@@ -94,40 +94,56 @@ public class TestAuthentication {
 	}
 	
 	
-	/*
+	
 	@Test
 	public void ws_nologin() {
-		JSONArray noactionarray = new JSONArray(TestAuthentication.wsrequest.toString());
-		noactionarray.remove(1);
-		System.out.printf("%s\n", noactionarray.toString());
+		JSONArray noaction = new JSONArray();
+		
+		JSONObject type = new JSONObject();
+		type.put("action", "login");
+		noaction.put(type);
+		
+		JSONObject pwhash = new JSONObject();
+		pwhash.put("password", TestAuthentication.passwordhash);
+		noaction.put(pwhash);
+
 		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
 		simpleConnect.initSSLContext( new File("fulgentcorp.cer"));
-		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, noactionarray.toString()));
+		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(noaction, "")));
 		assertNotNull(response);
 		assertEquals("error", MyUtilities.getJSONObject("result", response).get("result"));
 		assertEquals("Could not locate \"login\" key in JSON array argument!", MyUtilities.getJSONObject("message", response).get("message"));
 	}
 	
+
 	@Test
 	public void ws_nopassword() {
-		JSONArray noactionarray = new JSONArray(TestAuthentication.wsrequest.toString());
-		noactionarray.remove(2);
+		JSONArray nopassword = new JSONArray();
+		JSONObject type = new JSONObject();
+		type.put("action", "login");
+		nopassword.put(type);
+		
+		JSONObject login  = new JSONObject();
+		login.put("login",  TestAuthentication.login);
+		nopassword.put(login);
+		
 		
 		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
 		simpleConnect.initSSLContext( new File("fulgentcorp.cer"));
-		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, noactionarray.toString()));
+		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET,MyUtilities.sha256adder(nopassword, "")));
 		assertNotNull(response);
 		assertEquals("error", MyUtilities.getJSONObject("result", response).get("result"));
 		assertEquals("Could not locate \"password\" key in JSON array argument!", MyUtilities.getJSONObject("message", response).get("message"));
 	}
 
-	
+	/*
+	 * Returns the error about not finding session salt
 	@Test
 	public void ws_invalidAction() {
 		JSONArray loginrequest = new JSONArray();
 		
 		JSONObject type = new JSONObject();
-		type.put("action", "dontlogin");
+		type.put("action", "noaction");
 		loginrequest.put(type);
 		
 		JSONObject login  = new JSONObject();
@@ -141,11 +157,12 @@ public class TestAuthentication {
 		
 		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
 		simpleConnect.initSSLContext( new File("fulgentcorp.cer"));
-		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginrequest).toString()));
+		JSONArray response  = new JSONArray(simpleConnect.sendRequest(HTTPMethod.GET, MyUtilities.sha256adder(loginrequest, "")));
 		assertNotNull(response);
 		assertEquals("error", MyUtilities.getJSONObject("result", response).get("result"));
 		assertEquals("Invalid action value!", MyUtilities.getJSONObject("message", response).get("message"));
 	}
+	
 	*/
 	@Test
 	public void ws_invalidlogin() {

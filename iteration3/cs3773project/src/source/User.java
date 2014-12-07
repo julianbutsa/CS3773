@@ -141,7 +141,7 @@ public class User {
 		JSONArray rArray = new JSONArray ( response);
 		
 		JSONObject returnType = MyUtilities.getJSONObject("result", rArray);
-		if(returnType.get("result") == "success")
+		if(returnType.get("result").equals("success"))
 			returnString = (String) MyUtilities.getJSONObject("message", rArray).get("message");
 		else{
 			throw new Exception ( (String) MyUtilities.getJSONObject("message", rArray).get("message"));

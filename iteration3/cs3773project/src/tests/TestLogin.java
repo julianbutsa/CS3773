@@ -251,7 +251,39 @@ public class TestLogin {
 		try{
 			response = User.hello(usersession, simpleConnect);
 		}catch(Exception e){
-			System.out.printf("Exception %s\n", e.getMessage());
+			System.out.printf("Exception :%s\n", e.getMessage());
+		}
+		assertEquals (  "hello jbc878Bruneault", response);
+	}
+	
+	@Test
+	public void test_hello_nosessionid(){
+		User testuser = null;
+		Session usersession = null;
+		try {
+			testuser = new User("jbc878Bruneault", "qcGQp8Z5tzahZXk" );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		WSStuff simpleConnect = new WSStuff("https://devcloud.fulgentcorp.com/bifrost/ws.php");
+		simpleConnect.initSSLContext(new File("fulgentcorp.cer"));
+		try {
+			usersession = testuser.login(simpleConnect);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(usersession.toString());
+		String response = "";
+		try{
+			response = User.hello(usersession, simpleConnect);
+		}catch(Exception e){
+			System.out.printf("Exception :%s\n", e.getMessage());
 		}
 		assertEquals (  "hello jbc878Bruneault", response);
 	}
