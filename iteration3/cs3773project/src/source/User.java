@@ -22,7 +22,7 @@ public class User {
 			this.password = CryptoStuff.hashSha256(p);
 		}
 		else{
-			//throw new Exception();
+			//throw new Exception("failed to make user");
 		}
 	}
 	/*
