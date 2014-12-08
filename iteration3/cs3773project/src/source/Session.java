@@ -18,6 +18,15 @@ public class Session {
 		return sessionSalt;
 	}
 
+	
+	public void setSessionID(int sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public void setSessionSalt(String sessionSalt) {
+		this.sessionSalt = sessionSalt;
+	}
+
 	@Override
 	public String toString() {
 		return "Session [sessionID=" + sessionID + ", sessionSalt="
