@@ -64,7 +64,25 @@ public class TestAddUser {
 	
 	@Test
 	public void test_AddUser_success() {
-
+		assertEquals(true, User.addUser(u, adminsession, context));
 	}
+	
+
+	@Test
+	public void test_AddUser_nulluser(){
+		
+	}
+	
+	@Test
+	public void test_AddUser_notauthorized(){
+		
+	}
+	
+	@Test
+	public void test_Adduser_loginexists(){
+		
+	}
+	
+	
 
 }

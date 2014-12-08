@@ -122,6 +122,7 @@ public class User {
 		newsession = new Session(MyUtilities.getJSONObject("session_id", rArray).get("session_id"),
 								MyUtilities.getJSONObject("session_salt", rArray).get("session_salt"));
 		return newsession;
+	}
 
 	public static String hello(Session usersession, WSStuff simpleConnect) throws Exception {
 		// TODO Auto-generated method stub
@@ -148,4 +149,18 @@ public class User {
 		}
 		return returnString;
 	}
+
+
+	public static boolean addUser (User usertoadd, Session adminsession, WSStuff context) {
+		// TODO Auto-generated method stub
+		if(usertoadd == null){
+			throw new IllegalArgumentException("User cannot be null");
+		}
+		
+		
+		return true;
+	}
+	
+	
+	
 }
