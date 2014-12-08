@@ -122,8 +122,6 @@ public class User {
 		newsession = new Session(MyUtilities.getJSONObject("session_id", rArray).get("session_id"),
 								MyUtilities.getJSONObject("session_salt", rArray).get("session_salt"));
 		return newsession;
-	}
-
 
 	public static String hello(Session usersession, WSStuff simpleConnect) throws Exception {
 		// TODO Auto-generated method stub
@@ -134,6 +132,8 @@ public class User {
 		action.put("action", "hello");
 		JSONObject sessionid = new JSONObject();
 		action.put("session_id", usersession.getSessionID());
+		
+		
 		helloRequest.put(action);
 		helloRequest.put(sessionid);
 		
